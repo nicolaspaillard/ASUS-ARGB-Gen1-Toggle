@@ -40,6 +40,7 @@ This project includes captured USB traffic in the `pcap/` and `pcap/pcapng/` fol
 
 ## Notes
 
+- Tested on a TUF 7690 Plus, Z790 should work too, sent bytes are the same.
 - This is an experimental hardware-control utility.
 - Some systems may require the controller to be in gen1 static state before OpenRGB can fully control it.
 - If the board does not respond, the script may need to be rerun after restarting OpenRGB or after closing ASUS software such as Armoury Crate / Aura.

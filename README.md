@@ -34,6 +34,10 @@ python toggle_gen1.py
 Then launch OpenRGB and connect to the motherboard/controller.
 The script needs to be ran on each startup because the controller resets to rainbow on reboot.
 
+## Included Wireshark dumps
+
+This project includes captured USB traffic in the `pcap/` and `pcap/pcapng/` folders. These Wireshark captures document the ASUS ARGB control sequences used to switch protocol modes and force a static red state.
+
 ## Notes
 
 - This is an experimental hardware-control utility.

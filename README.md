@@ -17,27 +17,30 @@ Some ASUS motherboards expose multiple ARGB protocol modes. OpenRGB works best w
 
 ## Install
 
+- To run the compiled executable: no additional Python packages are required — use the bundled `Asus ARGB Toggler.exe`.
+- If you prefer to run from source, install the runtime dependency:
+
 ```bash
 pip install hidapi
 ```
 
-On Windows, this typically works with the standard Python installation used for the script.
+On Windows, the `pip` step is only necessary when running the `.py` source directly.
 
 ## Usage
 
-Run the script normally from the project folder:
+Run the compiled executable from the project folder (or from the installed location):
 
-```bash
-python "Asus ARGB Toggler.py"
+```powershell
+'.\Asus ARGB Toggler.exe'
 ```
 
 This defaults to scanning for ASUS ARGB HID devices, switching them to Gen1 mode, and forcing a static red state so OpenRGB can take over.
 
 ### Command line arguments
 
-```bash
-python "Asus ARGB Toggler.py" --add-startup
-python "Asus ARGB Toggler.py" --remove-startup
+```powershell
+'.\Asus ARGB Toggler.exe' --add-startup
+'.\Asus ARGB Toggler.exe' --remove-startup
 ```
 
 - `--add-startup`: adds a shortcut to Windows Startup so the script runs automatically at login.
@@ -63,9 +66,9 @@ This script writes raw HID packets to ASUS vendor devices. It can change the lig
 ## Typical workflow
 
 1. Close ASUS RGB software (Armoury Crate / Aura) if it is running.
-2. Run the script:
-   ```bash
-   python "Asus ARGB Toggler.py"
+2. Run the compiled executable:
+   ```powershell
+   .\Asus ARGB Toggler.exe
    ```
 3. Start OpenRGB.
 4. Detect and control the motherboard lighting through OpenRGB.

@@ -1,7 +1,37 @@
 #!/usr/bin/env python3
+import argparse
 import sys
 import time
 import hid
+import os
+
+
+def get_shortcut_path():
+    import winshell
+
+    return os.path.join(winshell.startup(), "Asus ARGB Toggler.lnk")
+
+
+def add_startup():
+    from win32com.client import Dispatch
+
+    shortcut_path = get_shortcut_path()
+    if os.path.exists(shortcut_path):
+        return  # already set up, don't duplicate
+    target = sys.executable
+    working_dir = os.path.dirname(target)
+    shell = Dispatch("WScript.Shell")
+    shortcut = shell.CreateShortCut(shortcut_path)
+    shortcut.Targetpath = target
+    shortcut.WorkingDirectory = working_dir
+    shortcut.IconLocation = target
+    shortcut.save()
+
+
+def remove_startup():
+    shortcut_path = get_shortcut_path()
+    if os.path.exists(shortcut_path):
+        os.remove(shortcut_path)
 
 
 def send(dev, data_bytes):
@@ -58,13 +88,26 @@ def set_static(dev, num_headers=10):
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--add-startup", action="store_true")
+    parser.add_argument("--remove-startup", action="store_true")
+    args = parser.parse_args()
+
+    if args.remove_startup:
+        remove_startup()
+        return
+
+    if args.add_startup:
+        add_startup()
+        return
+
     # 0x0B05 = ASUS vendor ID
     for controller in hid.enumerate(0x0B05):
         device = hid.device()
         try:
             device.open_path(controller["path"])
         except OSError as e:
-            print(f"Open error: {e}")
+            pass
         try:
             set_gen1(device)
             # static mode so OpenRGB can take over

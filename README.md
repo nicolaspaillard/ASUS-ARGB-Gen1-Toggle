@@ -25,14 +25,25 @@ On Windows, this typically works with the standard Python installation used for 
 
 ## Usage
 
-From the project folder:
+Run the script normally from the project folder:
 
 ```bash
-python toggle_gen1.py
+python "Asus ARGB Toggler.py"
 ```
 
-Then launch OpenRGB and connect to the motherboard/controller.
-The script needs to be ran on each startup because the controller resets to rainbow on reboot.
+This defaults to scanning for ASUS ARGB HID devices, switching them to Gen1 mode, and forcing a static red state so OpenRGB can take over.
+
+### Command line arguments
+
+```bash
+python "Asus ARGB Toggler.py" --add-startup
+python "Asus ARGB Toggler.py" --remove-startup
+```
+
+- `--add-startup`: adds a shortcut to Windows Startup so the script runs automatically at login.
+- `--remove-startup`: removes the Startup shortcut created by the script.
+
+If you run the script with no arguments, it performs the hardware toggle immediately. The script needs to be run on each startup because the controller resets to rainbow on reboot.
 
 ## Included Wireshark dumps
 
@@ -54,7 +65,7 @@ This script writes raw HID packets to ASUS vendor devices. It can change the lig
 1. Close ASUS RGB software (Armoury Crate / Aura) if it is running.
 2. Run the script:
    ```bash
-   python toggle_gen1.py
+   python "Asus ARGB Toggler.py"
    ```
 3. Start OpenRGB.
 4. Detect and control the motherboard lighting through OpenRGB.
